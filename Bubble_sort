@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+void swap(int *a,int *b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+void print_arr(int arr[],int n){
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+void bubble_sort(int arr[],int n){
+    for(int i=1;i<n;i++){
+        bool swapped =false;
+        for(int j=0;j<n-i;j++){
+            if(arr[j]>arr[j+1]){
+                swap(&arr[j],&arr[j+1]);
+                swapped=true;
+            }
+        }
+        if(swapped=false){
+            break;
+        }
+    }
+}
+int main(){
+    int arr[7]={12,34,6,0,56,123,4};
+    int r[4]={1,2,3,4};
+    bubble_sort(arr,7);
+    cout<<"the sorted array is :"<<"\n";
+    print_arr(arr,7);
+}
