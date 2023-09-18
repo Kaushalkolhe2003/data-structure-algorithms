@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+void printarr(int arr[],int s,int e){
+    for(int i=s;i<=e;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+
+bool binarysearch(int *arr,int s,int e,int k){
+ cout<<endl;
+ printarr(arr,s,e);
+ cout<<endl;
+ if(s>e){
+     return false;
+ }   
+ int mid=s+(e-s)/2;
+ cout<<arr[mid]<<endl;
+ if(arr[mid]==k){
+     return true;
+ }
+ 
+ if(arr[mid]<k){
+     return binarysearch(arr,mid+1,e,k);
+ }
+ else{
+     return binarysearch(arr,s,mid-1,k);
+ }
+}
+int main(){
+    int arr[6]={12,34,56,78,90,102};
+    bool ans=binarysearch(arr,0,5,102);
+    if(ans){
+        cout<<"Present";
+    }
+    else{
+        cout<<"not found";
+    }
+}
