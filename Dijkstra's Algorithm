@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#include <set>
+#include <unordered_map>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int source) {
+   unordered_map<int, list<pair<int, int>>> adj;
+
+   for (int i = 0; i < edges; i++) {
+       int u = vec[i][0];
+       int v = vec[i][1];
+       int w = vec[i][2];
+       adj[u].push_back(make_pair(v, w));
+       adj[v].push_back(make_pair(u, w));
+   }
+
+   set<pair<int, int>> s;
+   vector<int> dist(vertices, INT_MAX);
+   dist[source] = 0;
+   s.insert(make_pair(0, source));
+
+   while (!s.empty()) {
+       auto top = *(s.begin());
+       int nodedist = top.first;
+       int topnode = top.second;
+       s.erase(s.begin());
+
+       // Traverse on neighbour
+       for (auto i : adj[topnode]) {
+           int neighbour = i.first;
+           int weight = i.second;
+           if (nodedist + weight < dist[neighbour]) {
+               auto record = s.find(make_pair(dist[neighbour], neighbour));
+               if (record != s.end()) {
+                   s.erase(record);
+               }
+               dist[neighbour] = nodedist + weight;
+               s.insert(make_pair(dist[neighbour], neighbour));
+           }
+       }
+   }
+   return dist;
+}
